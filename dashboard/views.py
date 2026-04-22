@@ -1,25 +1,20 @@
-from django.http import HttpResponse
-from .models import Paciente
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Paciente
-from .models import Doctor 
-from .models import Gerente
-from .models import Recepcionista
+from usuarios.models import Usuario  
 
-def dashboard_pacientes (request):
-    Paciente = Paciente.objects.all().order_by('-fecha_registro')
-    total_pacientes = Paciente.count()
+def dashboard_paciente(request):
+    
+    pacientes = Usuario.objects.filter(rol='paciente').order_by('-date_joined')
+    total_pacientes = pacientes.count()
 
     context = {
-        'pacientes':Paciente,
-        'total_pacientes':total_pacientes,
+        'pacientes': pacientes,
+        'total_pacientes': total_pacientes,
     }
-    return render (request , 'dashboard.html' , context)
-
+    return render(request, 'dashboard_paciente.html', context)
 
 def dashboard_doctores(request):
-    doctores = Doctor.objects.all()
+    
+    doctores = Usuario.objects.filter(rol='doctor').order_by('-date_joined')
     total_doctores = doctores.count()
     
     context = {
@@ -28,17 +23,20 @@ def dashboard_doctores(request):
     }
     return render(request, 'dashboard_doctores.html', context)
 
-
 def dashboard_gerente(request):
-    gerentes = Gerente.objects.all()
+    
+    gerentes = Usuario.objects.filter(rol='gerente')
+    
     context = {
         'gerentes': gerentes,
+        'total_gerentes': gerentes.count(),
     }
     return render(request, 'dashboard_gerente.html', context)
 
-
 def dashboard_recepcionista(request):
-    recepcionistas = Recepcionista.objects.all()
+    # Filtramos por rol 'recepcionista'
+    recepcionistas = Usuario.objects.filter(rol='recepcionista')
+    
     context = {
         'recepcionistas': recepcionistas,
         'total_recepcion': recepcionistas.count(),
