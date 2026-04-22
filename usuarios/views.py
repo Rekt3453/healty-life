@@ -13,3 +13,5 @@ def registro_paciente(request):
         form = RegistroPacienteForm()
         return render(request, 'usuarios/registro.html', {'form': form})
         
+def home (request):
+    return render(request, 'usuarios/home.html')

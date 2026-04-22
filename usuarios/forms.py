@@ -6,7 +6,10 @@ class RegistroPacienteForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, label='Nombre')
     last_name = forms.CharField(max_length=30, label='Apellido')
     email = forms.EmailField(label='Correo Electrónico')
-    fecha_nacimiento = forms.DateField(label='Fecha de Nacimiento', widget=forms.SelectDateWidget(years=range(1900, 2025)))
+    fecha_nacimiento = forms.DateField(
+        label='Fecha de Nacimiento',
+        widget=forms.DateInput(attrs={'type': 'date'}) 
+    )
     cedula = forms.CharField(max_length=20, label='Cédula de Identidad', required=True, widget=forms.TextInput(attrs={'placeholder': 'Ej: V-12345678'}))
     telefono = forms.CharField(max_length= 20, label= 'telefono')
     
