@@ -1,0 +1,30 @@
+<div calss ="container mt-4">
+    <h2>dashboard de pacientew</h2>
+    <div calss="card mb-3">
+        <div class = "card-body">
+            <h5>Total Registrados: {{total_pacientes}}</h5>
+        </div>
+    </div>
+
+    <table class ="table table-hover">
+        <thead>
+            <tr>
+                <th>Cedula</th>
+                <th>Nombre completo</th>
+                <th>Fecah de registro</th>
+                <th>Acciones </th>
+            
+            </tr>
+        </thead>
+        <tbody>
+            {% for paciente in pacientes %}
+            <tr>
+                <td>{{paciente.cedula}}</td>
+                <td>{{paceinte.nombre}} {{paceiente.apellido}}</td>
+                <td>{{paciente.fecha_registro|date:"d/m/Y"}}</td>
+                <td><a href ="#" class ="btn btn-sm btn-primary">Ver</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
