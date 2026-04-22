@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-person-workspace"></i> Personal de Recepción</h2>
+        <span class="badge bg-success">Activos: {{ total_recepcion }}</span>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Cédula</th>
+                        <th>Nombre Completo</th>
+                        <th>Turno Asignado</th>
+                        <th>Contacto</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for personal in recepcionistas %}
+                    <tr>
+                        <td>{{ personal.cedula }}</td>
+                        <td>{{ personal.nombre }} {{ personal.apellido }}</td>
+                        <td>{{ personal.telefono }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">No hay personal de recepción registrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
