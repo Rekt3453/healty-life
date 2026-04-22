@@ -119,5 +119,5 @@ USE_TZ = True
 STATIC_URL = 'static/'
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/pacientes/'
 LOGIN_URL = '/usuarios/login/'

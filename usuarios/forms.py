@@ -16,11 +16,13 @@ class RegistroPacienteForm(UserCreationForm):
     
     class Meta:
         model = Usuario
-        fields = ('username', 'first_name', 'last_name', 'email', 'fecha_nacimiento', 'cedula', 'telefono', 'password1', 'password2')
+        fields = ('username', 'first_name', 'last_name', 'email', 'fecha_nacimiento', 'cedula', 'telefono')
         
 def save(self, commit=True):
     user = super().save(commit=False)
     user.rol = 'paciente'  
+    user.is_staff = False
+    user.is_superuser = False
     if commit:
         user.save()
     return user

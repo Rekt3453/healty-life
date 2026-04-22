@@ -1,36 +1,78 @@
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center">
-        <h2>Panel de Control: Personal Médico</h2>
-        <span class="badge bg-info text-dark">Total Doctores: {{ total_doctores }}</span>
-    </div>
-    
-    <hr>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Doctores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
 
-    <div class="card shadow-sm">
-        <div class="card-body">
-            <table class="table table-striped table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Nombre y Apellido</th>
-                        <th>Especialidad</th>
-                        <th>Contacto</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for doctor in doctores %}
-                    <tr>
-                        <td><strong>Dr. {{ doctor.nombre }} {{ doctor.apellido }}</strong></td>
-                        <td>{{ doctor.especialidad }}</td>
-                        <td>{{ doctor.email }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="5" class="text-center">No hay doctores registrados actualmente.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"><i class="bi bi-hospital"></i> Gestión Médica</a>
+            <div class="d-flex">
+                <span class="navbar-text text-white me-3">
+                    Total: <strong>{{ total_doctores }}</strong>
+                </span>
+                <a href="/login/" class="btn btn-light btn-sm">Salir</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row align-items-center mb-4">
+            <div class="col">
+                <h2 class="fw-bold">Nómina de Doctores</h2>
+                <p class="text-secondary">Lista detallada de los médicos registrados en el sistema.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for doctor in doctores %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-person-badge fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="ms-3">
+                                <h5 class="card-title mb-0">{{ doctor.get_full_name|default:doctor.username }}</h5>
+                                <small class="text-primary fw-semibold">Doctor Titular</small>
+                            </div>
+                        </div>
+                        
+                        <ul class="list-group list-group-flush small">
+                            <li class="list-group-item bg-transparent px-0">
+                                <i class="bi bi-envelope text-muted me-2"></i> {{ doctor.email }}
+                            </li>
+                            <li class="list-group-item bg-transparent px-0">
+                                <i class="bi bi-calendar-check text-muted me-2"></i> Ingreso: {{ doctor.date_joined|date:"d M Y" }}
+                            </li>
+                            <li class="list-group-item bg-transparent px-0">
+                                <i class="bi bi-shield-lock text-muted me-2"></i> Usuario: <code>{{ doctor.username }}</code>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-0 d-grid gap-2 pb-3">
+                        <button class="btn btn-outline-primary btn-sm">Ver Historial</button>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-people text-muted display-1"></i>
+                <p class="mt-3 fs-5 text-secondary">No se encontraron doctores registrados con el rol 'doctor'.</p>
+                <a href="/registro/" class="btn btn-primary mt-2">Registrar Nuevo</a>
+            </div>
+            {% endfor %}
         </div>
     </div>
-</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
