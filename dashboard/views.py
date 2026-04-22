@@ -1,11 +1,12 @@
 from django.http import HttpResponse
 from .models import Paciente
 from django.shortcuts import render
-from .models import Recepcionista
-from .models import Gerente
+from django.http import HttpResponse
+from .models import Paciente
 from .models import Doctor 
+from .models import Gerente
+from .models import Recepcionista
 
-# Create your views here.
 def dashboard_pacientes (request):
     Paciente = Paciente.objects.all().order_by('-fecha_registro')
     total_pacientes = Paciente.count()
@@ -17,15 +18,15 @@ def dashboard_pacientes (request):
     return render (request , 'dashboard.html' , context)
 
 
-
-def dashboard_recepcionista(request):
-    recepcionistas = Recepcionista.objects.all()
+def dashboard_doctores(request):
+    doctores = Doctor.objects.all()
+    total_doctores = doctores.count()
+    
     context = {
-        'recepcionistas': recepcionistas,
-        'total_recepcion': recepcionistas.count(),
+        'doctores': doctores,
+        'total_doctores': total_doctores,
     }
-    return render(request, 'dashboard_recepcionista.html', context)
-
+    return render(request, 'dashboard_doctores.html', context)
 
 
 def dashboard_gerente(request):
@@ -36,12 +37,10 @@ def dashboard_gerente(request):
     return render(request, 'dashboard_gerente.html', context)
 
 
-def dashboard_doctores(request):
-    doctores = Doctor.objects.all()
-    total_doctores = doctores.count()
-    
+def dashboard_recepcionista(request):
+    recepcionistas = Recepcionista.objects.all()
     context = {
-        'doctores': doctores,
-        'total_doctores': total_doctores,
+        'recepcionistas': recepcionistas,
+        'total_recepcion': recepcionistas.count(),
     }
-    return render(request, 'dashboard_doctores.html', context)
+    return render(request, 'dashboard_recepcionista.html', context)
